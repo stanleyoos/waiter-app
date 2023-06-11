@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { getSingleTable } from "../../../redux/subreducers/tableRedux"
 import { Form, Card, Button } from "react-bootstrap"
 import { getAllTableStatuses } from "../../../redux/subreducers/tableStatusRedux"
 import { useState } from "react"
+import { updateTableRequest } from "../../../redux/subreducers/tableRedux"
 
 const SingleTable = () => {
+  const dispatch = useDispatch()
+
   const { id } = useParams()
   const table = useSelector((state) => getSingleTable(state, id))
 
@@ -27,6 +30,19 @@ const SingleTable = () => {
     const maxValue = e.target.value
     if (people >= maxPeople) setPeopleAmount(maxValue)
     setMaxPeopleAmount(maxValue)
+  }
+
+  const handleUpdate = () => {
+    dispatch(
+      updateTableRequest({
+        id: table.id,
+        status: tableStatus,
+        peopleAmount: people,
+        maxPeopleAmount: maxPeople,
+        bill: billValue,
+      })
+    )
+    navigate("/")
   }
 
   const tableStatusesOptions = useSelector(getAllTableStatuses)
@@ -92,7 +108,7 @@ const SingleTable = () => {
               ></Form.Control>
             </div>
           )}
-          <Button className="ms-1 mt-4" variant="light">
+          <Button onClick={handleUpdate} className="ms-1 mt-4" variant="light">
             Update
           </Button>
         </Card.Body>
