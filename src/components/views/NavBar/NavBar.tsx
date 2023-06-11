@@ -9,7 +9,7 @@ const NavBar = () => {
     <>
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className='rounded my-4'>
       <Container>
-        <Navbar.Brand href="#home">Waiter App</Navbar.Brand>
+        <Navbar.Brand as={NavLink} to='/'>Waiter App</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">

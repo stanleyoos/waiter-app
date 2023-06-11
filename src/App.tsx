@@ -6,8 +6,22 @@ import HomePage from './components/pages/HomePage/HomePage';
 import SingleTable from './components/pages/SingleTable/SingleTable';
 import NotFound from './components/pages/NotFound/NotFound';
 import About from './components/pages/About/About';
+import { fetchTables } from './redux/subreducers/tableRedux';
+import { fetchTableStatuses } from './redux/subreducers/tableStatusRedux';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  
+
+  useEffect(() => {
+    dispatch(fetchTables())
+    dispatch(fetchTableStatuses())
+  }, [dispatch])
+
   return (
     <Container>
       <Header/>

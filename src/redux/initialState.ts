@@ -6,8 +6,9 @@ export interface TableInterface {
     bill: Number
 }
 
-const initialState:{tables: TableInterface[]} = {
-    tables: []
+const initialState:{tables: TableInterface[], tableStatus: String[]} = {
+    tables: [],
+    tableStatus: []
 }
 
 export default initialState
