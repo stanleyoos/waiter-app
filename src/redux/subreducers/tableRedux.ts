@@ -36,6 +36,32 @@ export const updateTableRequest = (table: any) => {
   }
 }
 
+export const deleteTableRequest = (id: any) => {
+  return (dispatch: any) => {
+    const options = {
+      method: "DELETE",
+    }
+    fetch(`http://localhost:3131/api/tables/${id}`, options).then(() =>
+      dispatch(fetchTables())
+    )
+  }
+}
+
+export const addTableRequest = (table: TableInterface) => {
+  return (dispatch: any) => {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(table),
+    }
+    fetch(`http://localhost:3131/api/tables`, options).then(() =>
+      dispatch(fetchTables())
+    )
+  }
+}
+
 const tableReducer = (statePart: TableInterface[] = [], action: any) => {
   switch (action.type) {
     case UPDATE_TABLES:
