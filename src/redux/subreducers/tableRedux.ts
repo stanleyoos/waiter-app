@@ -1,4 +1,5 @@
 import { TableInterface } from "../initialState"
+import { API_URL } from "../../config"
 
 // selectors
 export const getAllTables = (state: any) => state.tables
@@ -15,7 +16,7 @@ export const updateTables = (payload: any) => ({ type: UPDATE_TABLES, payload })
 
 export const fetchTables = () => {
   return (dispatch: any) => {
-    fetch("http://localhost:3131/api/tables")
+    fetch(`${API_URL}/tables`)
       .then((res) => res.json())
       .then((tables) => dispatch(updateTables(tables)))
   }
@@ -30,7 +31,7 @@ export const updateTableRequest = (table: any) => {
       },
       body: JSON.stringify(table),
     }
-    fetch(`http://localhost:3131/api/tables/${table.id}`, options).then(() =>
+    fetch(`${API_URL}/tables/${table.id}`, options).then(() =>
       dispatch(fetchTables())
     )
   }
@@ -41,7 +42,7 @@ export const deleteTableRequest = (id: any) => {
     const options = {
       method: "DELETE",
     }
-    fetch(`http://localhost:3131/api/tables/${id}`, options).then(() =>
+    fetch(`${API_URL}/tables/${id}`, options).then(() =>
       dispatch(fetchTables())
     )
   }
@@ -56,9 +57,7 @@ export const addTableRequest = (table: TableInterface) => {
       },
       body: JSON.stringify(table),
     }
-    fetch(`http://localhost:3131/api/tables`, options).then(() =>
-      dispatch(fetchTables())
-    )
+    fetch(`${API_URL}/tables`, options).then(() => dispatch(fetchTables()))
   }
 }
 
